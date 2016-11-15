@@ -1,0 +1,6 @@
+book;The Illustrated Man;Ray Bradbury;SIMON;v;USA;2012-08-06;EN;none;279;104x168x24mm;100;paperback;200-300405-48;science_fiction_fantasy_horror
+book;The Illustrated Man;Ray Bradbury;SIMON & SCHUSTER;v;USA;2012-08-06;EN;none;279;104x168x24mm;100;paperback;200-300405-48;fiction,science_fiction_fantasy_horror
+newspaper;NP1;;kk;city;country;1998-12-19;FR;black_and_white;100;260/280/4mm;98;paperback;p0y1m0d;5;politics;local
+newspaper;NP1;d1,d5,d6,d7,d8;kk;city;country;1998-12-19;EN;black_and_white;680;260/280/4mm;98;paperback;p0y1m0d;5;politics;international
+magazine;NP1;;kk;city;country;1998-12-19;EN;black_and_white;1100;260/280/4mm;98;paperback;p0y1m0d;5;politics
+
