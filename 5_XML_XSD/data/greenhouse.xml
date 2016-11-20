@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flowers xmlns="http://www.example.com/greenhouse"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.example.com/greenhouse greenhouse.xsd">
+    <flower name="Name">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+    </flower>
+</flowers>
