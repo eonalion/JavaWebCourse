@@ -41,11 +41,11 @@ public class SAXValidator {
             parser.parse(filePath.toFile(), new FlowerErrorHandler());
             return true;
         } catch (ParserConfigurationException e) {
-            logger.fatal(e);
+            logger.error("", e);
         } catch (IOException e) {
             logger.fatal(e);
         } catch (SAXException e) {
-            logger.fatal(e);
+            logger.error("",e);
         }
         return false;
     }

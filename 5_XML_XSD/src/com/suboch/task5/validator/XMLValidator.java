@@ -39,9 +39,9 @@ public class XMLValidator {
             logger.info(filePath.getFileName() + " is valid.");
             return true;
         } catch (SAXException e) {
-            logger.fatal("validation of " + filePath.getFileName() + " is not valid", e);
-        } catch (IOException e){
-            logger.fatal(filePath.getFileName()+" is not valid",e);
+            logger.error("validation of " + filePath.getFileName() + " is not valid", e);
+        } catch (IOException e) {
+            logger.error("wrong" + filePath.getFileName(), e);
         }
         logger.info(filePath.getFileName() + " is not valid.");
         return false;

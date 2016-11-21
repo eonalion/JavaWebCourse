@@ -1,4 +1,4 @@
-package com.suboch.task5.entity;
+package com.suboch.task5.flower;
 
 import com.suboch.task5.exception.InvalidValueException;
 
@@ -9,6 +9,15 @@ public class GrowingTips {
     private boolean heliphilous;
     private int temperature;
     private int water;
+
+    public GrowingTips(){
+    }
+
+    public GrowingTips(boolean heliphilous, int temperature, int water) {
+        this.heliphilous = heliphilous;
+        this.temperature = temperature;
+        this.water = water;
+    }
 
     public boolean isHeliphilous() {
         return heliphilous;
@@ -29,7 +38,7 @@ public class GrowingTips {
     public void setTemperature(int temperature) throws InvalidValueException {
         if(temperature>=-40 && temperature<=50) {
             this.temperature = temperature;
-        } else throw new InvalidValueException("Invalid temperature");
+        } else throw new InvalidValueException("Invalid temperature format");
     }
 
     public void setWater(int water) {

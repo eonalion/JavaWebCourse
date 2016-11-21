@@ -1,6 +1,6 @@
 package com.suboch.task5.builder;
 
-import com.suboch.task5.entity.*;
+import com.suboch.task5.flower.*;
 import com.suboch.task5.exception.InvalidValueException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -60,7 +60,7 @@ public class FlowerStAXBuilder {
         } catch (InvalidValueException e) {
             logger.warn(e);
         } catch (XMLStreamException e) {
-            logger.fatal(e);
+            logger.error("", e);
         } catch (FileNotFoundException e) {
             logger.fatal(e);
         } finally {
@@ -68,8 +68,8 @@ public class FlowerStAXBuilder {
                 if (inputStream != null) {
                     inputStream.close();
                 }
-            } catch (IOException ex) {
-                logger.fatal(ex);
+            } catch (IOException e) {
+                logger.fatal("", e);
             }
         }
     }

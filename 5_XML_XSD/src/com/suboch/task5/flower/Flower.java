@@ -1,4 +1,4 @@
-package com.suboch.task5.entity;
+package com.suboch.task5.flower;
 
 import com.suboch.task5.exception.InvalidValueException;
 
@@ -16,6 +16,15 @@ public abstract class Flower {
     public Flower() {
         visualParameters = new VisualParameters();
         growingTips = new GrowingTips();
+    }
+
+    public Flower(String name, String origin, SoilType soilType, VisualParameters visualParameters, GrowingTips growingTips, MultiplyingType multiplying) {
+        this.name = name;
+        this.origin = origin;
+        this.soilType = soilType;
+        this.visualParameters = visualParameters;
+        this.growingTips = growingTips;
+        this.multiplying = multiplying;
     }
 
     public String getName() {

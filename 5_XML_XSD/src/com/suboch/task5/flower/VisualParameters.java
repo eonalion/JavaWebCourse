@@ -1,4 +1,6 @@
-package com.suboch.task5.entity;
+package com.suboch.task5.flower;
+
+import com.suboch.task5.exception.InvalidValueException;
 
 /**
  *
@@ -7,6 +9,14 @@ public class VisualParameters {
     private String stemColor;
     private String leafColor;
     private int size;
+
+    public VisualParameters() {}
+
+    public VisualParameters(String stemColor, String leafColor, int size) {
+        this.stemColor = stemColor;
+        this.leafColor = leafColor;
+        this.size = size;
+    }
 
     public String getStemColor() {
         return stemColor;
@@ -28,8 +38,10 @@ public class VisualParameters {
         this.leafColor = leafColor;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setSize(int size) throws InvalidValueException {
+        if(size>0) {
+            this.size = size;
+        } else throw new InvalidValueException("Size cannot be negative");
     }
 
     @Override

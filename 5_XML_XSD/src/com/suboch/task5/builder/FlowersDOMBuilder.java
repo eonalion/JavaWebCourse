@@ -1,6 +1,6 @@
 package com.suboch.task5.builder;
 
-import com.suboch.task5.entity.*;
+import com.suboch.task5.flower.*;
 import com.suboch.task5.exception.InvalidValueException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,11 +61,11 @@ public class FlowersDOMBuilder {
                 flowers.add(buildOutdoorFlower(outdoorFlowerElement));
             }
         } catch (IOException e) {
-            logger.fatal(e);
+            logger.fatal("",e);
         } catch (SAXException e) {
-            logger.fatal(e);
+            logger.error("Error in document parsing", e);
         } catch (InvalidValueException e) {
-            logger.fatal(e);
+            logger.warn("",e);
         }
     }
 
@@ -78,7 +78,6 @@ public class FlowersDOMBuilder {
     public OutdoorFlower buildOutdoorFlower(Element flowerElement) throws InvalidValueException {
         OutdoorFlower flower = (OutdoorFlower) buildFlower(new OutdoorFlower(), flowerElement);
         flower.setLifetime(FlowerLifetime.valueOf(getElementValue(flowerElement, FlowersCharacteristic.LIFETIME.getValue()).toUpperCase()));
-        //flower.setLifetime(FlowerLifetime.ANNUAL);
         return flower;
     }
 

@@ -1,4 +1,4 @@
-package com.suboch.task5.entity;
+package com.suboch.task5.flower;
 
 /**
  *

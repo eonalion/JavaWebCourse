@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flowers xmlns="http://www.example.com/greenhouse"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.example.com/greenhouse greenhouse.xsd">
+
+    <indoor-flower name="Indoor flower 1">
+        <soil>loam</soil>
+        <origin>Origin1</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>230</size>
+        </visual-parameters>
+        <growing-tips>
+            <temperature>20</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <indoor-flower name="Indoor flower 2">
+        <soil>sod-podzolic</soil>
+        <origin>Origin2</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>200</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>200</water>
+        </growing-tips>
+        <multiplying>leaves</multiplying>
+        <flowering>false</flowering>
+    </indoor-flower>
+
+    <outdoor-flower name="Outdoor flower 1">
+        <soil>podzolic</soil>
+        <origin>Origin1</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>500</size>
+        </visual-parameters>
+        <growing-tips heliphilous="false">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <lifetime>perennial</lifetime>
+    </outdoor-flower>
+
+</flowers>

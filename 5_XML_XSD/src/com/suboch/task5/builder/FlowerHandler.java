@@ -1,8 +1,9 @@
 package com.suboch.task5.builder;
 
-import com.suboch.task5.entity.*;
+import com.suboch.task5.flower.*;
 import com.suboch.task5.exception.InvalidValueException;
-import org.w3c.dom.Attr;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -14,6 +15,7 @@ import java.util.List;
  *
  */
 public class FlowerHandler extends DefaultHandler {
+    private static Logger logger = LogManager.getLogger();
     private List<Flower> flowers;
     private Flower currentFlower;
     private FlowersCharacteristic currentElement = FlowersCharacteristic.EMPTY_TAG;
@@ -41,8 +43,8 @@ public class FlowerHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        String s = localName;
-        FlowersCharacteristic characteristic = FlowersCharacteristic.valueOf(s.toUpperCase().replace(DASH, UNDERLINE));
+        FlowersCharacteristic characteristic = FlowersCharacteristic.valueOf(localName.toUpperCase().replace(DASH, UNDERLINE));
+
         switch (characteristic) {
             case INDOOR_FLOWER:
                 currentFlower = new IndoorFlower();
@@ -74,7 +76,7 @@ public class FlowerHandler extends DefaultHandler {
         try {
             currentFlower.setName(attributes.getValue(FlowersCharacteristic.NAME.getValue()));
         } catch (InvalidValueException e) {
-            //FIXME: log exception
+            logger.warn(e);
         }
     }
 
@@ -104,13 +106,17 @@ public class FlowerHandler extends DefaultHandler {
                     currentFlower.getVisualParameters().setLeafColor(text);
                     break;
                 case SIZE:
-                    currentFlower.getVisualParameters().setSize(Integer.valueOf(text.toUpperCase()));
+                    try {
+                        currentFlower.getVisualParameters().setSize(Integer.valueOf(text.toUpperCase()));
+                    } catch (InvalidValueException e) {
+                        logger.warn(e);
+                    }
                     break;
                 case TEMPERATURE:
                     try {
                         currentFlower.getGrowingTips().setTemperature(Integer.parseInt(text));
                     } catch (InvalidValueException e) {
-                        //FIXME: log exception
+                        logger.warn(e);
                     }
                     break;
                 case WATER:
@@ -126,7 +132,7 @@ public class FlowerHandler extends DefaultHandler {
                     ((OutdoorFlower) currentFlower).setLifetime(FlowerLifetime.valueOf(text.toUpperCase()));
                     break;
                 default:
-                    throw new SAXException();//TODO: exception
+                    throw new SAXException("Tag was not recognized");
             }
         }
     }
