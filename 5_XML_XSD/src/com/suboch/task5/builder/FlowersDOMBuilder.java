@@ -1,8 +1,7 @@
 package com.suboch.task5.builder;
 
-import com.suboch.task5.entity.Flower;
-import com.suboch.task5.entity.MultiplyingType;
-import com.suboch.task5.entity.SoilType;
+import com.suboch.task5.entity.*;
+import com.suboch.task5.exception.InvalidValueException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -49,20 +48,41 @@ public class FlowersDOMBuilder {
             document = documentBuilder.parse(fileName);
             Element rootElement = document.getDocumentElement();
 
-            NodeList flowersList = rootElement.getElementsByTagName(FlowersCharacteristic.FLOWER.getValue());
-            for (int i = INDEX_NULL; i < flowersList.getLength(); i++) {
-                Element flowerElement = (Element) flowersList.item(i);
-                flowers.add(buildFlower(flowerElement));
+            NodeList indoorFlowerList = rootElement.getElementsByTagName(FlowersCharacteristic.INDOOR_FLOWER.getValue());
+            NodeList outdoorFlowerList = rootElement.getElementsByTagName(FlowersCharacteristic.OUTDOOR_FLOWER.getValue());
+            Element indoorFlowerElement, outdoorFlowerElement;
+            for (int i = INDEX_NULL; i < indoorFlowerList.getLength(); i++) {
+                indoorFlowerElement = (Element) indoorFlowerList.item(i);
+                flowers.add(buildIndoorFlower(indoorFlowerElement));
+            }
+
+            for (int i = INDEX_NULL; i < outdoorFlowerList.getLength(); i++) {
+                outdoorFlowerElement = (Element) outdoorFlowerList.item(i);
+                flowers.add(buildOutdoorFlower(outdoorFlowerElement));
             }
         } catch (IOException e) {
             logger.fatal(e);
         } catch (SAXException e) {
             logger.fatal(e);
+        } catch (InvalidValueException e) {
+            logger.fatal(e);
         }
     }
 
-    public Flower buildFlower(Element flowerElement) {
-        Flower flower = new Flower();
+    public IndoorFlower buildIndoorFlower(Element flowerElement) throws InvalidValueException {
+        IndoorFlower flower = (IndoorFlower) buildFlower(new IndoorFlower(), flowerElement);
+        flower.setFlowering(Boolean.parseBoolean(getElementValue(flowerElement, FlowersCharacteristic.FLOWERING.getValue())));
+        return flower;
+    }
+
+    public OutdoorFlower buildOutdoorFlower(Element flowerElement) throws InvalidValueException {
+        OutdoorFlower flower = (OutdoorFlower) buildFlower(new OutdoorFlower(), flowerElement);
+        flower.setLifetime(FlowerLifetime.valueOf(getElementValue(flowerElement, FlowersCharacteristic.LIFETIME.getValue()).toUpperCase()));
+        //flower.setLifetime(FlowerLifetime.ANNUAL);
+        return flower;
+    }
+
+    public Flower buildFlower(Flower flower, Element flowerElement) throws InvalidValueException {
         Element visualParameters = (Element) flowerElement.getElementsByTagName(FlowersCharacteristic.VISUAL_PARAMETERS.getValue()).item(INDEX_NULL);
         Element growingTips = (Element) flowerElement.getElementsByTagName(FlowersCharacteristic.GROWING_TIPS.getValue()).item(INDEX_NULL);
 
@@ -81,6 +101,7 @@ public class FlowersDOMBuilder {
     }
 
     private static String getElementValue(Element parentElement, String tagName) {
-            return parentElement.getElementsByTagName(tagName).item(INDEX_NULL).getTextContent().replace(DASH, UNDERLINE);
+
+        return parentElement.getElementsByTagName(tagName).item(INDEX_NULL).getTextContent().replace(DASH, UNDERLINE);
     }
 }

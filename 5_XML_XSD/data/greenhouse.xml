@@ -2,7 +2,39 @@
 <flowers xmlns="http://www.example.com/greenhouse"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.example.com/greenhouse greenhouse.xsd">
-    <flower name="Name">
+    <indoor-flower name="Indoor flower 1">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips >
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <indoor-flower name="Indoor flower 2">
+        <soil>sod-podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <outdoor-flower name="Outdoor flower 1">
         <soil>loam</soil>
         <origin>Origin</origin>
         <visual-parameters>
@@ -15,5 +47,246 @@
             <water>500</water>
         </growing-tips>
         <multiplying>seeds</multiplying>
-    </flower>
+        <lifetime>annual</lifetime>
+    </outdoor-flower>
+
+    <outdoor-flower name="Outdoor flower 2">
+        <soil>sod-podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <lifetime>perennial</lifetime>
+    </outdoor-flower>
+
+    <outdoor-flower name="Outdoor flower 3">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>100</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <lifetime>biennial</lifetime>
+    </outdoor-flower>
+
+    <indoor-flower name="Indoor flower 3">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <indoor-flower name="Indoor flower 4">
+        <soil>podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="false">
+            <temperature>40</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <outdoor-flower name="Outdoor flower 4">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="false">
+            <temperature>5</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <lifetime>annual</lifetime>
+    </outdoor-flower>
+
+    <outdoor-flower name="Outdoor flower 5">
+        <soil>sod-podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>leaves</multiplying>
+        <lifetime>biennial</lifetime>
+    </outdoor-flower>
+
+    <outdoor-flower name="Outdoor flower 6">
+        <soil>podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>400</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <lifetime>annual</lifetime>
+    </outdoor-flower>
+
+    <outdoor-flower name="Outdoor flower 7">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>700</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>25</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <lifetime>perennial</lifetime>
+    </outdoor-flower>
+
+    <indoor-flower name="Indoor flower 5">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>leaves</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <outdoor-flower name="Outdoor flower 8">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <lifetime>annual</lifetime>
+    </outdoor-flower>
+
+    <indoor-flower name="Indoor flower 6">
+        <soil>sod-podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <flowering>true</flowering>
+    </indoor-flower>
+
+    <outdoor-flower name="Outdoor flower 9">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <lifetime>annual</lifetime>
+    </outdoor-flower>
+
+    <indoor-flower name="Indoor flower 7">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <flowering>false</flowering>
+    </indoor-flower>
+
+    <outdoor-flower name="Outdoor flower 10">
+        <soil>loam</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>100</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>500</water>
+        </growing-tips>
+        <multiplying>seeds</multiplying>
+        <lifetime>annual</lifetime>
+    </outdoor-flower>
+
+    <indoor-flower name="Indoor flower 8">
+        <soil>podzolic</soil>
+        <origin>Origin</origin>
+        <visual-parameters>
+            <stem-color>color1</stem-color>
+            <leaf-color>color2</leaf-color>
+            <size>400</size>
+        </visual-parameters>
+        <growing-tips heliphilous="true">
+            <temperature>15</temperature>
+            <water>200</water>
+        </growing-tips>
+        <multiplying>cuttings</multiplying>
+        <flowering>false</flowering>
+    </indoor-flower>
 </flowers>

@@ -1,8 +1,8 @@
 package com.suboch.task5.builder;
 
-import com.suboch.task5.entity.Flower;
-import com.suboch.task5.entity.MultiplyingType;
-import com.suboch.task5.entity.SoilType;
+import com.suboch.task5.entity.*;
+import com.suboch.task5.exception.InvalidValueException;
+import org.w3c.dom.Attr;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -21,7 +21,7 @@ public class FlowerHandler extends DefaultHandler {
     private static final String DASH = "-";
     private static final String UNDERLINE = "_";
 
-    public FlowerHandler(){
+    public FlowerHandler() {
         flowers = new ArrayList<>();
     }
 
@@ -41,21 +41,46 @@ public class FlowerHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (FlowersCharacteristic.FLOWER.getValue().equals(localName)) {
-            currentFlower = new Flower();
+        String s = localName;
+        FlowersCharacteristic characteristic = FlowersCharacteristic.valueOf(s.toUpperCase().replace(DASH, UNDERLINE));
+        switch (characteristic) {
+            case INDOOR_FLOWER:
+                currentFlower = new IndoorFlower();
+                setNameAttribute(attributes);
+                break;
+            case OUTDOOR_FLOWER:
+                currentFlower = new OutdoorFlower();
+                setNameAttribute(attributes);
+                break;
+            case GROWING_TIPS:
+                if (attributes.getLength()!=0) {
+                    currentFlower.getGrowingTips().setHeliphilous(Boolean.parseBoolean(attributes.getValue(FlowersCharacteristic.HELIPHILOUS.getValue())));
+                } else {
+                    currentFlower.getGrowingTips().setHeliphilous(true);
+                }
+                currentElement = FlowersCharacteristic.EMPTY_TAG;
+                break;
+            case FLOWER:
+            case FLOWERS:
+            case VISUAL_PARAMETERS:
+                currentElement = FlowersCharacteristic.EMPTY_TAG;
+                break;
+            default:
+                currentElement = FlowersCharacteristic.valueOf(localName.toUpperCase().replace(DASH, UNDERLINE));
+        }
+    }
+
+    private void setNameAttribute(Attributes attributes) {
+        try {
             currentFlower.setName(attributes.getValue(FlowersCharacteristic.NAME.getValue()));
-        } else if (FlowersCharacteristic.FLOWERS.getValue().equals(localName) ||
-                FlowersCharacteristic.VISUAL_PARAMETERS.getValue().equals(localName) ||
-                FlowersCharacteristic.GROWING_TIPS.getValue().equals(localName)) {
-            currentElement = FlowersCharacteristic.EMPTY_TAG;
-        } else {
-            currentElement = FlowersCharacteristic.valueOf(localName.toUpperCase().replace(DASH, UNDERLINE));
+        } catch (InvalidValueException e) {
+            //FIXME: log exception
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (FlowersCharacteristic.FLOWER.getValue().equals(localName)) {
+        if (FlowersCharacteristic.INDOOR_FLOWER.getValue().equals(localName) || FlowersCharacteristic.OUTDOOR_FLOWER.getValue().equals(localName)) {
             flowers.add(currentFlower);
         }
         currentElement = FlowersCharacteristic.EMPTY_TAG;
@@ -63,7 +88,7 @@ public class FlowerHandler extends DefaultHandler {
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        String text = new String(ch, start, length).trim();
+        String text = new String(ch, start, length).trim().replace(DASH, UNDERLINE);
         if (currentElement != FlowersCharacteristic.EMPTY_TAG) {
             switch (currentElement) {
                 case SOIL:
@@ -82,13 +107,23 @@ public class FlowerHandler extends DefaultHandler {
                     currentFlower.getVisualParameters().setSize(Integer.valueOf(text.toUpperCase()));
                     break;
                 case TEMPERATURE:
-                    currentFlower.getGrowingTips().setTemperature(Integer.parseInt(text));
+                    try {
+                        currentFlower.getGrowingTips().setTemperature(Integer.parseInt(text));
+                    } catch (InvalidValueException e) {
+                        //FIXME: log exception
+                    }
                     break;
                 case WATER:
                     currentFlower.getGrowingTips().setWater(Integer.parseInt(text));
                     break;
                 case MULTIPLYING:
                     currentFlower.setMultiplying(MultiplyingType.valueOf(text.toUpperCase()));
+                    break;
+                case FLOWERING:
+                    ((IndoorFlower) currentFlower).setFlowering(Boolean.parseBoolean(text));
+                    break;
+                case LIFETIME:
+                    ((OutdoorFlower) currentFlower).setLifetime(FlowerLifetime.valueOf(text.toUpperCase()));
                     break;
                 default:
                     throw new SAXException();//TODO: exception

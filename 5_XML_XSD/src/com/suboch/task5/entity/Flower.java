@@ -5,7 +5,7 @@ import com.suboch.task5.exception.InvalidValueException;
 /**
  *
  */
-public class Flower {
+public abstract class Flower {
     private String name;
     private String origin;
     private SoilType soilType;
@@ -71,12 +71,13 @@ public class Flower {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
-        s.append("Name: " + name + "\n")
+        s.append("\n_______________\n"
+                + "Name: " + name + "\n")
                 .append("Origin: " + origin + "\n")
                 .append("Soil type: " + soilType.toString().toLowerCase() + "\n")
                 .append("Visual parameters:\n" + visualParameters)
                 .append("Growing tips:\n" + growingTips)
-                .append("Multiplying: " + multiplying.toString().toLowerCase());
+                .append("Multiplying: " + multiplying.toString().toLowerCase() + "\n");
         return s.toString();
     }
 }

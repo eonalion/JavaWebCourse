@@ -1,8 +1,7 @@
 package com.suboch.task5.builder;
 
-import com.suboch.task5.entity.Flower;
-import com.suboch.task5.entity.MultiplyingType;
-import com.suboch.task5.entity.SoilType;
+import com.suboch.task5.entity.*;
+import com.suboch.task5.exception.InvalidValueException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,13 +48,17 @@ public class FlowerStAXBuilder {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
-                    if (FlowersCharacteristic.FLOWER.getValue().equals(name)) {
-                        Flower flower = buildFlower(reader);
+                    if (FlowersCharacteristic.INDOOR_FLOWER.getValue().equals(name)) {
+                        Flower flower = buildFlower(new IndoorFlower(), reader);
+                        flowers.add(flower);
+                    } else if (FlowersCharacteristic.OUTDOOR_FLOWER.getValue().equals(name)) {
+                        Flower flower = buildFlower(new OutdoorFlower(), reader);
                         flowers.add(flower);
                     }
                 }
             }
-
+        } catch (InvalidValueException e) {
+            logger.warn(e);
         } catch (XMLStreamException e) {
             logger.fatal(e);
         } catch (FileNotFoundException e) {
@@ -71,9 +74,7 @@ public class FlowerStAXBuilder {
         }
     }
 
-    private Flower buildFlower(XMLStreamReader reader) throws XMLStreamException {
-        Flower flower = new Flower();
-
+    private Flower buildFlower(Flower flower, XMLStreamReader reader) throws XMLStreamException, InvalidValueException {
         String name;
         FlowersCharacteristic characteristic;
         while (reader.hasNext()) {
@@ -83,7 +84,8 @@ public class FlowerStAXBuilder {
                     name = reader.getLocalName();
                     characteristic = FlowersCharacteristic.valueOf(name.toUpperCase().replace(DASH, UNDERLINE));
                     switch (characteristic) {
-                        case FLOWER:
+                        case INDOOR_FLOWER:
+                        case OUTDOOR_FLOWER:
                             flower.setName(reader.getAttributeValue(null, FlowersCharacteristic.NAME.getValue()));
                             break;
                         case SOIL:
@@ -117,26 +119,18 @@ public class FlowerStAXBuilder {
                         case MULTIPLYING:
                             flower.setMultiplying(MultiplyingType.valueOf(getElementValue(reader).toUpperCase()));
                             break;
-                    }
-                    break;/*
-                case XMLStreamConstants.ATTRIBUTE:
-                    name = reader.getLocalName();
-                    characteristic = FlowersCharacteristic.valueOf(name.toUpperCase().replace("-", "_"));
-                    switch (characteristic) {
-                        case NAME:
-                            flower.setName(getElementValue(reader));
+                        case FLOWERING:
+                            ((IndoorFlower) flower).setFlowering(Boolean.parseBoolean(getElementValue(reader)));
                             break;
-
-                        case HELIPHILOUS:
-                            boolean heliphilous = Boolean.parseBoolean(getElementValue(reader));
-                            flower.getGrowingTips().setHeliphilous(heliphilous);
+                        case LIFETIME:
+                            ((OutdoorFlower) flower).setLifetime(FlowerLifetime.valueOf(getElementValue(reader).toUpperCase()));
                             break;
                     }
-                    break;*/
+                    break;
                 case XMLStreamConstants.END_ELEMENT:
                     name = reader.getLocalName();
                     characteristic = FlowersCharacteristic.valueOf(name.toUpperCase().replace(DASH, UNDERLINE));
-                    if (characteristic == FlowersCharacteristic.FLOWER) {
+                    if (characteristic == FlowersCharacteristic.INDOOR_FLOWER || characteristic == FlowersCharacteristic.OUTDOOR_FLOWER) {
                         return flower;
                     }
                     break;
@@ -150,7 +144,7 @@ public class FlowerStAXBuilder {
         String text = null;
         if (reader.hasNext()) {
             reader.next();
-            text = reader.getText();
+            text = reader.getText().replace(DASH, UNDERLINE);
         }
         return text;
     }

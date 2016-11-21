@@ -4,7 +4,17 @@
            targetNamespace="http://www.example.com/greenhouse"
            xmlns="http://www.example.com/greenhouse">
 
-    <xs:element name="flowers" type="flowersType"/>
+    <xs:element name="flower" type="flowerType" abstract="true"/>
+    <xs:element name="outdoor-flower" type="outdoorFlowerType" substitutionGroup="flower"/>
+    <xs:element name="indoor-flower" type="indoorFlowerType" substitutionGroup="flower"/>
+
+    <xs:element name="flowers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="flower" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:complexType name="flowerType">
         <xs:sequence>
@@ -15,6 +25,34 @@
             <xs:element type="multiplyingType" name="multiplying"/>
         </xs:sequence>
         <xs:attribute name="name" type="nameType" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="outdoorFlowerType">
+        <xs:complexContent>
+            <xs:extension base="flowerType">
+                <xs:sequence>
+                    <xs:element type="lifetimeType" name="lifetime"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="lifetimeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="annual"/>
+            <xs:enumeration value="biennial"/>
+            <xs:enumeration value="perennial"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="indoorFlowerType">
+        <xs:complexContent>
+            <xs:extension base="flowerType">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" name="flowering"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:simpleType name="nameType">
@@ -61,14 +99,5 @@
             <xs:enumeration value="seeds"/>
         </xs:restriction>
     </xs:simpleType>
-
-    <xs:complexType name="flowersType">
-        <xs:sequence>
-            <xs:element type="flowerType"
-                        name="flower"
-                        minOccurs="0"
-                        maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
 
 </xs:schema>
